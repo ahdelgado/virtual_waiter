@@ -5,6 +5,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
+gem 'autoprefixer-rails'
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'jquery-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'pg'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.1'
@@ -45,6 +48,8 @@ group :development, :test do
 end
 
 group :development do
+  gem 'binding_of_caller'
+  gem 'better_errors'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'

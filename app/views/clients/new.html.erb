@@ -1,0 +1,15 @@
+<h1>Add a Client</h1>
+
+<div class='row'>
+  <div class='span6 offset3'>
+    <%= form_for(@client) do |f| %>
+      <%= render 'shared/error_messages', object: @client %>
+      Name: <%= f.text_field :name %><br />
+      <div class='form-group'>
+        <%= f.label :logo %>
+        <%= f.file_field :logo %>
+      </div>
+      <%= f.submit "Add a new client", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
