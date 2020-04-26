@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_26_042117) do
+ActiveRecord::Schema.define(version: 2020_04_26_194817) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,17 @@ ActiveRecord::Schema.define(version: 2020_04_26_042117) do
     t.index ["item_id"], name: "index_ingredients_on_item_id"
   end
 
+  create_table "item_ingredients", force: :cascade do |t|
+    t.uuid "guid", default: -> { "uuid_generate_v4()" }
+    t.bigint "item_id"
+    t.bigint "ingredient_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guid"], name: "index_item_ingredients_on_guid"
+    t.index ["ingredient_id"], name: "index_item_ingredients_on_ingredient_id"
+    t.index ["item_id"], name: "index_item_ingredients_on_item_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.integer "price"
@@ -77,6 +88,17 @@ ActiveRecord::Schema.define(version: 2020_04_26_042117) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["section_id"], name: "index_items_on_section_id"
+  end
+
+  create_table "menu_sections", force: :cascade do |t|
+    t.uuid "guid", default: -> { "uuid_generate_v4()" }
+    t.bigint "menu_id"
+    t.bigint "section_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guid"], name: "index_menu_sections_on_guid"
+    t.index ["menu_id"], name: "index_menu_sections_on_menu_id"
+    t.index ["section_id"], name: "index_menu_sections_on_section_id"
   end
 
   create_table "menus", force: :cascade do |t|
@@ -97,12 +119,34 @@ ActiveRecord::Schema.define(version: 2020_04_26_042117) do
     t.index ["guid"], name: "index_restaurant_chains_on_guid"
   end
 
+  create_table "restaurant_menus", force: :cascade do |t|
+    t.uuid "guid", default: -> { "uuid_generate_v4()" }
+    t.bigint "restaurant_id"
+    t.bigint "menu_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guid"], name: "index_restaurant_menus_on_guid"
+    t.index ["menu_id"], name: "index_restaurant_menus_on_menu_id"
+    t.index ["restaurant_id"], name: "index_restaurant_menus_on_restaurant_id"
+  end
+
   create_table "restaurants", force: :cascade do |t|
     t.uuid "guid", default: -> { "uuid_generate_v4()" }
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["guid"], name: "index_restaurants_on_guid"
+  end
+
+  create_table "section_items", force: :cascade do |t|
+    t.uuid "guid", default: -> { "uuid_generate_v4()" }
+    t.bigint "section_id"
+    t.bigint "item_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guid"], name: "index_section_items_on_guid"
+    t.index ["item_id"], name: "index_section_items_on_item_id"
+    t.index ["section_id"], name: "index_section_items_on_section_id"
   end
 
   create_table "sections", force: :cascade do |t|
@@ -115,7 +159,15 @@ ActiveRecord::Schema.define(version: 2020_04_26_042117) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "ingredients", "items"
+  add_foreign_key "item_ingredients", "ingredients"
+  add_foreign_key "item_ingredients", "items"
   add_foreign_key "items", "sections"
+  add_foreign_key "menu_sections", "menus"
+  add_foreign_key "menu_sections", "sections"
   add_foreign_key "menus", "clients"
+  add_foreign_key "restaurant_menus", "menus"
+  add_foreign_key "restaurant_menus", "restaurants"
+  add_foreign_key "section_items", "items"
+  add_foreign_key "section_items", "sections"
   add_foreign_key "sections", "menus"
 end

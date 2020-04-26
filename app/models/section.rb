@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class Section < ApplicationRecord
-  belongs_to :menu
-  has_many :items
-  has_many :ingredients, through: :items
+  has_many :menus, through: :menu_sections
+  has_many :items, through: :section_items
 
   validates :name, presence: true
 end
