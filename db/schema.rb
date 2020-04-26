@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_05_234142) do
+ActiveRecord::Schema.define(version: 2020_04_26_042117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -36,10 +37,27 @@ ActiveRecord::Schema.define(version: 2020_04_05_234142) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "addresses", force: :cascade do |t|
+    t.string "address1"
+    t.string "address2"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "county"
+    t.string "country"
+    t.string "addressable_type"
+    t.bigint "addressable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["addressable_id"], name: "index_addresses_on_addressable_id"
+  end
+
   create_table "clients", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "guid", default: -> { "uuid_generate_v4()" }, null: false
+    t.index ["guid"], name: "index_clients_on_guid"
   end
 
   create_table "ingredients", force: :cascade do |t|
@@ -66,7 +84,25 @@ ActiveRecord::Schema.define(version: 2020_04_05_234142) do
     t.bigint "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "guid", default: -> { "uuid_generate_v4()" }, null: false
     t.index ["client_id"], name: "index_menus_on_client_id"
+    t.index ["guid"], name: "index_menus_on_guid"
+  end
+
+  create_table "restaurant_chains", force: :cascade do |t|
+    t.uuid "guid", default: -> { "uuid_generate_v4()" }
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guid"], name: "index_restaurant_chains_on_guid"
+  end
+
+  create_table "restaurants", force: :cascade do |t|
+    t.uuid "guid", default: -> { "uuid_generate_v4()" }
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guid"], name: "index_restaurants_on_guid"
   end
 
   create_table "sections", force: :cascade do |t|
