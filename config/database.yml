@@ -19,5 +19,5 @@ test:
 production:
   <<: *default
   database: <%= ENV['DB_NAME'] %>
-  sslmode: verify-full
+  sslmode: disable
   sslrootcert: <%= Rails.root.join('config', 'rds-ssl-ca-cert.pem') %>
