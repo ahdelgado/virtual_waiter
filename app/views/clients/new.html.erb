@@ -9,7 +9,7 @@
         <%= f.label :logo %>
         <%= f.file_field :logo %>
       </div>
-      <%= image_tag(url_for(Client.first&.logo), size: '260x180',) %>
+      <%#= image_tag(url_for(Client.first&.logo), size: '260x180',) %>
       <br>
       <br>
       <%= f.submit "Add a new client", class: "btn btn-large btn-primary" %>
