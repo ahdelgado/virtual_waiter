@@ -1,0 +1,30 @@
+// using require and require_true do not have access to
+// use scss variable in other files.
+// for more info https://github.com/twbs/bootstrap-rubygem
+
+@import "font-awesome";
+@import 'all';
+
+tr[data-href] td:not(:last-child){
+    cursor:pointer;
+}
+
+.delete_action {
+    position: relative;
+    bottom: 7px;
+    right: 12px;
+}
+
+.activate {
+    color: green;
+}
+.deactivate {
+    color: red;
+}
+
+.required-field {
+    font-weight: bold;
+&::after {
+     content: " *";
+ }
+}

@@ -1,2 +1,5 @@
-<h1>Client#index</h1>
-<p>Find me in app/views/client/index.html.erb</p>
+<h1>Clients</h1>
+
+<% if @clients.present? %>
+  <%=  render 'list_table', clients: @clients, page: 'index', url: clients_path %>
+<% end %>

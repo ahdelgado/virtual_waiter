@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
 class ClientsController < ApplicationController
-  def index; end
+  def index
+    @clients = Client.order(:name)
+  end
 
-  def show; end
+  def show
+    @client = Client.find(client_params[:id])
+  end
 
   def edit; end
 
@@ -28,6 +32,6 @@ class ClientsController < ApplicationController
   private
 
   def client_params
-    params.require(:client).permit(:name, :logo)
+    params.permit(:id, :name, :logo)
   end
 end
