@@ -1,0 +1,24 @@
+<table class="table table-hover sortable">
+  <thead>
+    <tr>
+      <th class="table-header--sortable">
+        Name
+      </th>
+      <th class="table-header--sortable">
+        Created At
+      </th>
+      <th class="table-header--sortable">
+        Actions
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% clients.each do |client| %>
+      <tr data-href="<%= client_path(client.id) %>">
+        <td class="w-15"><%= client.name %></td>
+        <td class="w-15"><%= client.created_at %></td>
+        <td class="w-15"><%= render 'shared/actions', resource: client %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
