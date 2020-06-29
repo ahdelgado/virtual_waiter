@@ -1,5 +1,9 @@
-<h1>Clients</h1>
+<% if user_signed_in? %>
+  <h1>Clients</h1>
 
-<% if @clients.present? %>
-  <%=  render 'list_table', clients: @clients, page: 'index', url: clients_path %>
+  <% if @clients.present? %>
+    <%=  render 'list_table', clients: @clients, page: 'index', url: clients_path %>
+  <% end %>
+<% else %>
+  <%= render 'devise/shared/login' %>
 <% end %>

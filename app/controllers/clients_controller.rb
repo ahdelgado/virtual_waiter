@@ -16,10 +16,10 @@ class ClientsController < ApplicationController
   def create
     @client = Client.new(client_params)
     if @client.save
-      flash[:success] = "Client added to database"
+      flash[:success] = 'Client added to database'
       redirect_to root_path
     else
-      flash[:danger] = "Save unsuccessful"
+      flash[:danger] = 'Save unsuccessful'
     end
   end
 

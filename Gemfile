@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.3'
 
 gem 'autoprefixer-rails'
-gem "aws-sdk-s3", require: false
+gem 'aws-sdk-s3', require: false
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', require: false
@@ -19,12 +19,13 @@ gem 'font-awesome-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
 gem 'mini_magick'
+gem 'omniauth'
+gem 'omniauth-twitter'
 gem 'pg'
 gem 'puma'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.1'
 gem 'sass-rails'
-
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+gem 'sidekiq'
 gem 'turbolinks'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -35,8 +36,6 @@ gem 'uglifier'
 # gem 'mini_racer', platforms: :ruby
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -48,8 +47,8 @@ group :development, :test do
 end
 
 group :development do
-  gem 'binding_of_caller'
   gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'

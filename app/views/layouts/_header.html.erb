@@ -1,11 +1,20 @@
 <header class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <%= link_to "sample app", root_path, id: "logo" %>
-      <nav>
-        <ul class="nav pull-right">
-          <li><%= link_to "Home", root_path %></li>
-        </ul>
+      <nav class="flex items-center justify-between flex-wrap bg-gray-100 py-3 lg:px-10 px-3 text-gray-700 border-b border-gray-400">
+        <div class="w-full block lg:flex-1 lg:flex items-center text-center lg:text-left">
+          <div class="lg:flex-grow">
+            <%= link_to "Vi Waiter", root_path, class: "block mt-4 lg:inline-block lg:mt-0 lg:mr-4 mb-2 lg:mb-0 link" %>
+          </div>
+          <div class="nav pull-right w-full block lg:flex lg:flex-row lg:flex-1 mt-2 lg:mt-0 text-center lg:text-left lg:justify-end">
+            <% if user_signed_in? %>
+              <%= link_to "Log out", destroy_user_session_path, method: :delete, class:"btn btn-default mb-2 lg:mr-2 lg:mb-0 block" %>
+            <% else %>
+              <%= link_to "Login", new_user_session_path, class:"btn btn-default mb-2 lg:mr-2 lg:mb-0 block" %>
+              <%= link_to "Sign Up", new_user_registration_path, class:"btn btn-default block" %>
+            <% end %>
+          </div>
+        </div>
       </nav>
     </div>
   </div>
