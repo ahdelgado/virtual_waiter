@@ -1,5 +1,14 @@
 <% if user_signed_in? %>
   <h1>Clients</h1>
+  <div class="clearfix">
+    <div class="float-right mb-2">
+      <%= link_to new_client_path, class: 'btn btn-sm btn-success' do %>
+        <%= fa_icon 'plus' %>
+        <%= "New Client" %>
+      <% end %>
+    </div>
+  </div>
+
 
   <% if @clients.present? %>
     <%=  render 'list_table', clients: @clients, page: 'index', url: clients_path %>
