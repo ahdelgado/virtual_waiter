@@ -15,13 +15,17 @@ tr[data-href] td:not(:last-child){
     right: 12px;
 }
 
-.activate {
+.green {
     color: green;
 }
-.deactivate {
+
+.red {
     color: red;
 }
 
+.blue {
+  color: blue;
+}
 .required-field {
     font-weight: bold;
 &::after {

@@ -3,6 +3,12 @@
 
   <% if @clients.present? %>
     <%=  render 'list_table', clients: @clients, page: 'index', url: clients_path %>
+  <% else %>
+    <div class="card">
+      <div class="card-body">
+        No Clients were found.
+      </div>
+    </div>
   <% end %>
 <% else %>
   <%= render 'devise/shared/login' %>

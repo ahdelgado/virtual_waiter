@@ -1,11 +1,11 @@
 <div class="d-flex justify-content-around">
-  <%= link_to send("#{resource.model_name.param_key}_path", resource.id), class: 'text-secondary disabled', data: {toggle: 'tooltip'}, title: 'Show' do %>
+  <%= link_to send("#{resource.model_name.param_key}_path", resource.id), class: 'blue', data: {toggle: 'tooltip'}, title: 'Show' do %>
      <%= fa_icon 'eye' %>
   <% end %>
-  <%= link_to send("edit_#{resource.model_name.param_key}_path", resource.id), class: 'text-secondary', data: {toggle: 'tooltip'}, title: 'Edit' do %>
+  <%= link_to send("edit_#{resource.model_name.param_key}_path", resource.id), class: 'green', data: {toggle: 'tooltip'}, title: 'Edit' do %>
     <%= fa_icon 'edit' %>
   <% end %>
-  <%= button_to send("#{resource.model_name.param_key}_path", resource.id), method: :delete, params: {}, data: { toggle: 'tooltip' }, class: 'btn btn-link delete_action deactivate', title: 'Deactivate' do %>
+  <%= button_to send("#{resource.model_name.param_key}_path", resource.id), method: :delete, params: {}, data: { toggle: 'tooltip' }, class: 'btn btn-link delete_action red', title: 'Deactivate' do %>
     <%= fa_icon 'ban' %>
   <% end %>
 </div>
