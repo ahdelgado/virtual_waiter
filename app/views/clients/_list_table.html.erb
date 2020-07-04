@@ -22,18 +22,3 @@
     <% end %>
   </tbody>
 </table>
-
-<script>
-  var clickableTableRow = {
-    clickableTableRowElement: 'tr[data-href]',
-
-    init: function() {
-      $.each($(this.clickableTableRowElement), (_, tr) => {
-        $(tr).find('td').not(':last').on('click', function() {
-          window.document.location = $(this).parent('tr').data('href');
-        });
-      })
-    }
-  }
-  clickableTableRow.init();
-</script>
