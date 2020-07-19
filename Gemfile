@@ -18,15 +18,19 @@ gem 'font-awesome-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
+gem 'jquery-fileupload-rails'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'mini_magick'
 gem 'omniauth'
 gem 'omniauth-twitter'
+gem 'paranoia'
 gem 'pg'
 gem 'puma'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.1'
 gem 'sass-rails'
 gem 'sidekiq'
+gem 'simple_form'
 gem 'turbolinks'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -54,6 +58,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
+  gem 'rails-erd'
 end
 
 group :production do

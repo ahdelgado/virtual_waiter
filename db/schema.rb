@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_28_173905) do
+ActiveRecord::Schema.define(version: 2020_07_19_205645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +49,9 @@ ActiveRecord::Schema.define(version: 2020_06_28_173905) do
     t.bigint "addressable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["addressable_id"], name: "index_addresses_on_addressable_id"
+    t.index ["deleted_at"], name: "index_addresses_on_deleted_at"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -57,6 +59,8 @@ ActiveRecord::Schema.define(version: 2020_06_28_173905) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "guid", default: -> { "uuid_generate_v4()" }, null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_clients_on_deleted_at"
     t.index ["guid"], name: "index_clients_on_guid"
   end
 
@@ -66,6 +70,8 @@ ActiveRecord::Schema.define(version: 2020_06_28_173905) do
     t.bigint "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_ingredients_on_deleted_at"
     t.index ["item_id"], name: "index_ingredients_on_item_id"
   end
 
@@ -75,6 +81,8 @@ ActiveRecord::Schema.define(version: 2020_06_28_173905) do
     t.bigint "ingredient_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_item_ingredients_on_deleted_at"
     t.index ["guid"], name: "index_item_ingredients_on_guid"
     t.index ["ingredient_id"], name: "index_item_ingredients_on_ingredient_id"
     t.index ["item_id"], name: "index_item_ingredients_on_item_id"
@@ -87,6 +95,8 @@ ActiveRecord::Schema.define(version: 2020_06_28_173905) do
     t.bigint "section_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_items_on_deleted_at"
     t.index ["section_id"], name: "index_items_on_section_id"
   end
 
@@ -96,6 +106,8 @@ ActiveRecord::Schema.define(version: 2020_06_28_173905) do
     t.bigint "section_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_menu_sections_on_deleted_at"
     t.index ["guid"], name: "index_menu_sections_on_guid"
     t.index ["menu_id"], name: "index_menu_sections_on_menu_id"
     t.index ["section_id"], name: "index_menu_sections_on_section_id"
@@ -107,7 +119,9 @@ ActiveRecord::Schema.define(version: 2020_06_28_173905) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "guid", default: -> { "uuid_generate_v4()" }, null: false
+    t.datetime "deleted_at"
     t.index ["client_id"], name: "index_menus_on_client_id"
+    t.index ["deleted_at"], name: "index_menus_on_deleted_at"
     t.index ["guid"], name: "index_menus_on_guid"
   end
 
@@ -116,6 +130,8 @@ ActiveRecord::Schema.define(version: 2020_06_28_173905) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_restaurant_chains_on_deleted_at"
     t.index ["guid"], name: "index_restaurant_chains_on_guid"
   end
 
@@ -125,6 +141,8 @@ ActiveRecord::Schema.define(version: 2020_06_28_173905) do
     t.bigint "menu_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_restaurant_menus_on_deleted_at"
     t.index ["guid"], name: "index_restaurant_menus_on_guid"
     t.index ["menu_id"], name: "index_restaurant_menus_on_menu_id"
     t.index ["restaurant_id"], name: "index_restaurant_menus_on_restaurant_id"
@@ -135,7 +153,18 @@ ActiveRecord::Schema.define(version: 2020_06_28_173905) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_restaurants_on_deleted_at"
     t.index ["guid"], name: "index_restaurants_on_guid"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.uuid "guid", default: -> { "uuid_generate_v4()" }
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["guid"], name: "index_roles_on_guid"
+    t.index ["name"], name: "index_roles_on_name"
   end
 
   create_table "section_items", force: :cascade do |t|
@@ -144,6 +173,8 @@ ActiveRecord::Schema.define(version: 2020_06_28_173905) do
     t.bigint "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_section_items_on_deleted_at"
     t.index ["guid"], name: "index_section_items_on_guid"
     t.index ["item_id"], name: "index_section_items_on_item_id"
     t.index ["section_id"], name: "index_section_items_on_section_id"
@@ -154,7 +185,19 @@ ActiveRecord::Schema.define(version: 2020_06_28_173905) do
     t.bigint "menu_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.index ["deleted_at"], name: "index_sections_on_deleted_at"
     t.index ["menu_id"], name: "index_sections_on_menu_id"
+  end
+
+  create_table "user_roles", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["role_id"], name: "index_user_roles_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_user_roles_on_user_id_and_role_id", unique: true
+    t.index ["user_id"], name: "index_user_roles_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -201,4 +244,6 @@ ActiveRecord::Schema.define(version: 2020_06_28_173905) do
   add_foreign_key "section_items", "items"
   add_foreign_key "section_items", "sections"
   add_foreign_key "sections", "menus"
+  add_foreign_key "user_roles", "roles"
+  add_foreign_key "user_roles", "users"
 end
