@@ -2,5 +2,6 @@
 
 class Order < ApplicationRecord
   include ReloadGuid
-  has_one :note, as: :notable
+  belongs_to :restaurant
+  has_many :items
 end

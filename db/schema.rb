@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_19_231213) do
+ActiveRecord::Schema.define(version: 2020_07_19_234048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 2020_07_19_231213) do
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.integer "price"
-    t.string "comments"
+    t.string "notes"
     t.bigint "section_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -127,32 +127,19 @@ ActiveRecord::Schema.define(version: 2020_07_19_231213) do
     t.index ["guid"], name: "index_menus_on_guid"
   end
 
-  create_table "notes", force: :cascade do |t|
-    t.uuid "guid", default: -> { "uuid_generate_v4()" }
-    t.string "notes"
-    t.string "notable_type"
-    t.bigint "notable_id"
-    t.datetime "deleted_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["deleted_at"], name: "index_notes_on_deleted_at"
-    t.index ["guid"], name: "index_notes_on_guid"
-    t.index ["notable_id"], name: "index_notes_on_notable_id"
-  end
-
   create_table "orders", force: :cascade do |t|
     t.uuid "guid", default: -> { "uuid_generate_v4()" }
     t.string "payment_token"
     t.integer "table_number"
     t.string "state"
-    t.integer "restaurant_id"
-    t.bigint "notes_id"
+    t.bigint "restaurant_id"
+    t.string "notes"
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_orders_on_deleted_at"
     t.index ["guid"], name: "index_orders_on_guid"
-    t.index ["notes_id"], name: "index_orders_on_notes_id"
+    t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
   end
 
   create_table "restaurant_chains", force: :cascade do |t|
@@ -271,7 +258,7 @@ ActiveRecord::Schema.define(version: 2020_07_19_231213) do
   add_foreign_key "menu_sections", "menus"
   add_foreign_key "menu_sections", "sections"
   add_foreign_key "menus", "clients"
-  add_foreign_key "orders", "notes", column: "notes_id"
+  add_foreign_key "orders", "restaurants"
   add_foreign_key "restaurant_menus", "menus"
   add_foreign_key "restaurant_menus", "restaurants"
   add_foreign_key "section_items", "items"

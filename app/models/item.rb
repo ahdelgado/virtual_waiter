@@ -2,7 +2,7 @@
 
 class Item < ApplicationRecord
   include ReloadGuid
-  has_one :note, as: :notable
+  belongs_to :order
   has_many :section_items
   has_many :sections, through: :section_items
   has_many :item_ingredients
