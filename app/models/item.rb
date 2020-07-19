@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Item < ApplicationRecord
+  include ReloadGuid
+  has_one :note, as: :notable
   has_many :section_items
   has_many :sections, through: :section_items
   has_many :item_ingredients
