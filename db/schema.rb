@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_19_234048) do
+ActiveRecord::Schema.define(version: 2020_07_20_021908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(version: 2020_07_19_234048) do
     t.datetime "updated_at", null: false
     t.uuid "guid", default: -> { "uuid_generate_v4()" }, null: false
     t.datetime "deleted_at"
+    t.string "available_times"
     t.index ["client_id"], name: "index_menus_on_client_id"
     t.index ["deleted_at"], name: "index_menus_on_deleted_at"
     t.index ["guid"], name: "index_menus_on_guid"
