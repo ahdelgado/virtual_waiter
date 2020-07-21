@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_20_021908) do
+ActiveRecord::Schema.define(version: 2020_07_21_202841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,13 +67,10 @@ ActiveRecord::Schema.define(version: 2020_07_20_021908) do
 
   create_table "ingredients", force: :cascade do |t|
     t.string "name"
-    t.integer "price"
-    t.bigint "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.index ["deleted_at"], name: "index_ingredients_on_deleted_at"
-    t.index ["item_id"], name: "index_ingredients_on_item_id"
   end
 
   create_table "item_ingredients", force: :cascade do |t|
@@ -83,6 +80,7 @@ ActiveRecord::Schema.define(version: 2020_07_20_021908) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.string "price"
     t.index ["deleted_at"], name: "index_item_ingredients_on_deleted_at"
     t.index ["guid"], name: "index_item_ingredients_on_guid"
     t.index ["ingredient_id"], name: "index_item_ingredients_on_ingredient_id"
@@ -91,15 +89,12 @@ ActiveRecord::Schema.define(version: 2020_07_20_021908) do
 
   create_table "items", force: :cascade do |t|
     t.string "name"
-    t.integer "price"
     t.string "notes"
-    t.bigint "section_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.uuid "guid", default: -> { "uuid_generate_v4()" }, null: false
     t.index ["deleted_at"], name: "index_items_on_deleted_at"
-    t.index ["section_id"], name: "index_items_on_section_id"
   end
 
   create_table "menu_sections", force: :cascade do |t|
@@ -192,6 +187,7 @@ ActiveRecord::Schema.define(version: 2020_07_20_021908) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.string "price"
     t.index ["deleted_at"], name: "index_section_items_on_deleted_at"
     t.index ["guid"], name: "index_section_items_on_guid"
     t.index ["item_id"], name: "index_section_items_on_item_id"
@@ -205,6 +201,9 @@ ActiveRecord::Schema.define(version: 2020_07_20_021908) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.uuid "guid", default: -> { "uuid_generate_v4()" }, null: false
+    t.boolean "required"
+    t.string "type"
+    t.integer "max_selectable"
     t.index ["deleted_at"], name: "index_sections_on_deleted_at"
     t.index ["menu_id"], name: "index_sections_on_menu_id"
   end
@@ -252,10 +251,8 @@ ActiveRecord::Schema.define(version: 2020_07_20_021908) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "ingredients", "items"
   add_foreign_key "item_ingredients", "ingredients"
   add_foreign_key "item_ingredients", "items"
-  add_foreign_key "items", "sections"
   add_foreign_key "menu_sections", "menus"
   add_foreign_key "menu_sections", "sections"
   add_foreign_key "menus", "clients"
