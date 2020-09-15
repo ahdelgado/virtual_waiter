@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   resources :clients
   root to: 'clients#index'
 
+  get '/temp', to: 'api#temp'
+
   authenticate :user, ->(u) { u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end

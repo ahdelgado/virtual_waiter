@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_22_225438) do
+ActiveRecord::Schema.define(version: 2020_09_15_220610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,8 @@ ActiveRecord::Schema.define(version: 2020_07_22_225438) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.uuid "guid", default: -> { "uuid_generate_v4()" }, null: false
+    t.text "description"
+    t.bigint "price"
     t.index ["deleted_at"], name: "index_items_on_deleted_at"
   end
 
@@ -144,6 +146,7 @@ ActiveRecord::Schema.define(version: 2020_07_22_225438) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.integer "client_id"
     t.index ["deleted_at"], name: "index_restaurant_chains_on_deleted_at"
     t.index ["guid"], name: "index_restaurant_chains_on_guid"
   end
@@ -167,6 +170,7 @@ ActiveRecord::Schema.define(version: 2020_07_22_225438) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.integer "restaurant_chain_id"
     t.index ["deleted_at"], name: "index_restaurants_on_deleted_at"
     t.index ["guid"], name: "index_restaurants_on_guid"
   end
@@ -174,8 +178,10 @@ ActiveRecord::Schema.define(version: 2020_07_22_225438) do
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.uuid "guid", default: -> { "uuid_generate_v4()" }
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_roles_on_deleted_at"
     t.index ["guid"], name: "index_roles_on_guid"
     t.index ["name"], name: "index_roles_on_name"
   end
@@ -187,7 +193,6 @@ ActiveRecord::Schema.define(version: 2020_07_22_225438) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.string "price"
     t.index ["deleted_at"], name: "index_section_items_on_deleted_at"
     t.index ["guid"], name: "index_section_items_on_guid"
     t.index ["item_id"], name: "index_section_items_on_item_id"
@@ -201,17 +206,21 @@ ActiveRecord::Schema.define(version: 2020_07_22_225438) do
     t.datetime "deleted_at"
     t.uuid "guid", default: -> { "uuid_generate_v4()" }, null: false
     t.boolean "required"
-    t.string "type"
     t.integer "max_selectable"
+    t.string "sectionable_type"
+    t.bigint "sectionable_id"
     t.index ["deleted_at"], name: "index_sections_on_deleted_at"
+    t.index ["sectionable_type", "sectionable_id"], name: "index_sections_on_sectionable_type_and_sectionable_id"
   end
 
   create_table "user_roles", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "role_id"
+    t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "guid", default: -> { "uuid_generate_v4()" }, null: false
+    t.index ["deleted_at"], name: "index_user_roles_on_deleted_at"
     t.index ["role_id"], name: "index_user_roles_on_role_id"
     t.index ["user_id", "role_id"], name: "index_user_roles_on_user_id_and_role_id", unique: true
     t.index ["user_id"], name: "index_user_roles_on_user_id"
