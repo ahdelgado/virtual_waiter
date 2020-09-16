@@ -133,7 +133,8 @@ ActiveRecord::Schema.define(version: 2020_09_16_001253) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.integer "client_id"
+    t.bigint "client_id"
+    t.index ["client_id"], name: "index_restaurant_chains_on_client_id"
     t.index ["deleted_at"], name: "index_restaurant_chains_on_deleted_at"
     t.index ["guid"], name: "index_restaurant_chains_on_guid"
   end
@@ -157,9 +158,10 @@ ActiveRecord::Schema.define(version: 2020_09_16_001253) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
-    t.integer "restaurant_chain_id"
+    t.bigint "restaurant_chain_id"
     t.index ["deleted_at"], name: "index_restaurants_on_deleted_at"
     t.index ["guid"], name: "index_restaurants_on_guid"
+    t.index ["restaurant_chain_id"], name: "index_restaurants_on_restaurant_chain_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -251,8 +253,10 @@ ActiveRecord::Schema.define(version: 2020_09_16_001253) do
   add_foreign_key "item_ingredients", "items"
   add_foreign_key "menus", "clients"
   add_foreign_key "orders", "restaurants"
+  add_foreign_key "restaurant_chains", "clients"
   add_foreign_key "restaurant_menus", "menus"
   add_foreign_key "restaurant_menus", "restaurants"
+  add_foreign_key "restaurants", "restaurant_chains"
   add_foreign_key "section_items", "items"
   add_foreign_key "section_items", "sections"
   add_foreign_key "user_roles", "roles"
