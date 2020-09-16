@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get '/temp', to: 'api#temp'
 
+  get '/restaurant', to: 'api#restaurant'
+
   authenticate :user, ->(u) { u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
