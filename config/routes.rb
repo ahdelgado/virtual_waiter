@@ -8,8 +8,6 @@ Rails.application.routes.draw do
   resources :clients
   root to: 'clients#index'
 
-  get '/temp', to: 'api#temp'
-
   get '/restaurant', to: 'api#restaurant'
 
   authenticate :user, ->(u) { u.admin? } do
