@@ -1,5 +1,5 @@
 class AddRestaurantChainIdToRestaurants < ActiveRecord::Migration[5.2]
   def change
-    add_column :restaurants, :restaurant_chain_id, :integer
+    add_reference :restaurants, :restaurant_chains, index: true, foreign_key: true
   end
 end
