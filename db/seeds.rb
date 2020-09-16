@@ -24,7 +24,7 @@ combos = menus.first.sections << Section.create(name: "Combo Entrees", sectionab
 
 angus = combos.first.items << Item.create(name: "Angus Chop Steak Combo")
 
-side1 = angus.first.sections << Section.create(name: "Side #1")
+side1 = angus.first.sections << Section.create(name: "Side #1", description: 'Served with two sides, a side salad and a drink.', required: true, max_selectable: 1)
 
 side1.first.items << Item.create(name: "Mashed Potatoes")
 side1.first.items << Item.create(name: "Green Beans")
@@ -40,7 +40,7 @@ spinach = side1.first.items[3]
 broccoli = side1.first.items[4]
 cabbage = side1.first.items[5]
 
-side2 = angus.first.sections << Section.create(name: "Side #2")
+side2 = angus.first.sections << Section.create(name: "Side #2", description: 'Served with two sides, a side salad and a drink.')
 
 side2.items << mashed
 side2.items << greens
@@ -49,13 +49,13 @@ side2.items << spinach
 side2.items << broccoli
 side2.items << cabbage
 
-gravy = angus.first.sections << Section.create(name: "Choice of Gravy", required: true)
+gravy = angus.first.sections << Section.create(name: "Choice of Gravy", required: true, max_selectable: 1)
 
 gravy.first.items << Item.create(name: "Cream Gravy")
 gravy.first.items << Item.create(name: "Brown Gravy")
 gravy.first.items << Item.create(name: "Natural Gravy")
 
-condiments = angus.first.sections << Section.create(name: "Condiments", required: true)
+condiments = angus.first.sections << Section.create(name: "Condiments", required: true, max_selectable: -1)
 
 condiments.first.items << Item.create(name: "Tartar sauce")
 condiments.first.items << Item.create(name: "Cocktail Sauce")

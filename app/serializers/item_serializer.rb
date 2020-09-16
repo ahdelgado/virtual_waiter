@@ -2,5 +2,5 @@ class ItemSerializer
   include FastJsonapi::ObjectSerializer
   has_many :sections
   
-  attributes :name
+  attributes :name, :description, :price
 end
